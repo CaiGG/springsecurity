@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ *
+ * 初始化 sqlSessionFactory
+ * 扫描mapper.xml文件
+ */
+
 @Configuration
 public class MyBatisConfig {
 
