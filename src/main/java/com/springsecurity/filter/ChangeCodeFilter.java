@@ -7,6 +7,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * 改变Request里面对象的值，ParamterRequestWrapper 通过继承 HttpServletRequestWrapper
+ *  根据不同情况重写 getParameter getParameterValues getParameterMap等方法
+ *
+ */
+
 @WebFilter(urlPatterns = "/print/*", filterName = "ChangeCodeFilter")
 public class ChangeCodeFilter implements Filter{
     @Override

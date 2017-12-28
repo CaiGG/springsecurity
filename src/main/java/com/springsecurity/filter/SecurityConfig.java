@@ -1,11 +1,15 @@
 package com.springsecurity.filter;
 
+import com.springsecurity.security.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -33,13 +37,19 @@ import java.io.IOException;
  *
  */
 
-/*@EnableWebSecurity*/
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    UserDetailsService customUserService(){
+        return new CustomUserService();
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+      /*  auth.inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER");*/
+      auth.userDetailsService(customUserService()).passwordEncoder(md5PasswordEncoder());
 
     }
 
@@ -91,5 +101,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 /*.deleteCookies("cookieNamesToClear")*/
                 .permitAll();
     }
+
+    @Bean
+    Md5PasswordEncoder md5PasswordEncoder(){
+        return new Md5PasswordEncoder();
+    }
+
+
+
 }
 

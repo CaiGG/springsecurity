@@ -1,10 +1,26 @@
-package com.springsecurity.Bean;
+package com.springsecurity.bean;
 
 
-public class User {
+import com.springsecurity.bean.SysRole;
 
+import java.io.Serializable;
+import java.util.List;
+
+public class User  implements Serializable{
+
+    private static final long serialVersionUID = 4172367857314592144L;
     private String username;
     private String password;
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
+    List<SysRole> roles;
 
     public String getUsername() {
         return username;
